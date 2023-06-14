@@ -1,5 +1,0 @@
-catedra = 0.5
-puentes = 1
-completo = 0
-random = 0.33333
-difPuente = 7/9
