@@ -1,0 +1,27 @@
+struct arista {int u, v, d}
+proc modems(in N, R, W, U, V: int, in vector<coordenada> pos) {
+    // pos tiene las coordenadas de todas las oficinas
+    // Generamos y ordenamos aristas por peso
+    vector<arista> aristas := {}
+    for (i := 0; i < $N$; i := i + 1) :
+        for (j := i+1; j < $N$; j := j + 1) :
+            peso := sqrt((pos[i].x - pos[j].x)$^2$ + 
+                         (pos[i].y - pos[j].y)$^2$)
+            aristas.push_back({i,j,d})
+
+    sort(aristas) // QuickSort
+    // Realizamos N - W iteraciones de Kruskal
+    dsu grupos(N) := {1...N}
+    pU := 0
+    pV := 0
+    faltan := N - W
+    for (arista e: aristas) :
+        if (grupos.get(a.u) != grupos.get(a.v)) :
+                grupos.unite(a.u, a.v);
+                if (a.d <= R) : pU += a.d;
+                else :          pV += a.d;
+                faltan := faltan - 1
+                if (faltan = 0) : break
+            
+    res := {pU * U, pV * V}
+}

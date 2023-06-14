@@ -1,0 +1,12 @@
+La complejidad del algoritmo presentado es la siguiente: 
+- obtener input O(n)
+- generar grafo completo O(n^2)
+- ordenar aristas del grafo completo O(n^2 * log(n^2))
+- aplicar el algoritmo de kruskal O(n^2 * alpha(n))
+
+En cormen se demuestra que alpha(n) crece mas lentamente que log(n) por lo que la complejidad del algoritmo es O(n^2 * log(n^2))
+
+Notamos que la parte más costosa del algoritmo es el ordenamiento de las aristas por lo que pensamos que una posible optimizacion seria aplicar bucketSort.
+Observamos que la distancia maxima entre 2 vertices es que uno se ubique en (-10000, -10000) y el otro vertice se ubique en (10000, 10000), en cuyo caso la distancia entre ambas es aproximadamente 28285. Entonces elegimos un numero arbitrario, en este caso 100, y generamos un vector de 300 posiciones, en la posicion i del vector ubicamos las aristas que tienen una distancia que pertenece al rango [i * 100, (i+1) * 100). Luego ordenamos las aristas de la primer posicion del vector y empezamos a aplicar kruskal con las primeras aristas ordenadas, cuando ya analizamos todas las de la primer posicion, ordenamos las de la segunda posicion y seguimos aplicando kruskal. De esta manera, nos evitamos ordenar la mayoria de las aristas del grafo. Cabe aclarar que esta optimizacion no mejora la complejidad del algoritmo pero si mejora la constante.
+
+blablabla grafico blablabla, considerar kruskal O(N^2)

@@ -1,0 +1,85 @@
+
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc} % para poder usar tildes en archivos UTF-8
+\usepackage[spanish]{babel} % para que comandos como \today den el resultado en castellano
+\usepackage{a4wide} % márgenes un poco más anchos que lo usual
+\usepackage[conEntregas]{caratula}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{verbatimbox}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{floatrow}
+\usepackage{wrapfig}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\renewcommand{\lstlistingname}{Algoritmo}% Listing -> Algorithm
+\renewcommand{\figurename}{Figura}% Listing -> Algorithm
+
+\graphicspath{ {./img/} }
+
+\lstdefinelanguage{pseudo}{
+  morekeywords={
+    struct,
+    pre,
+    post,
+    if,
+    while,
+    for,
+    in,
+    out,
+    proc,
+    inout,
+    do,
+    and,
+    not,
+    return,
+    break,
+    raise
+  },
+  sensitive=false, % keywords are not case-sensitive
+  morecomment=[l]{//}, % l is for line comment
+  morecomment=[s]{/*}{*/}, % s is for start and end delimiter
+  keywordstyle=\color{black}\textbf,
+  commentstyle=\color{gray},
+  morestring=[b]", % defines that strings are enclosed in double quotes
+  inputencoding=utf8,
+  extendedchars=true,
+  literate=
+    {λ}{$\lambda$}1
+    {α}{$\alpha$}1
+    {ε}{$\epsilon$}1
+    {Λ}{$\Lambda$}1
+    {>=}{$\geq$}2
+    {<=}{$\leq$}2
+}
+
+\hyphenation{co-rres-pon-der}
+\hyphenation{li-neal}
+
+\begin{document}
+
+\titulo{Trabajo Práctico 2: Recorridos y \'Arbol generador m\'inimo}
+
+\materia{Algoritmos y Estructuras de Datos III}
+\grupo{VLakTracking}
+
+\integrante{Lakowsky, Manuel}{511/21}{mlakowsky@gmail.com}
+\integrante{Vekselman, Nat\'an}{338/21}{natanvek11@gmail.com}
+
+\maketitle
+
+% === secciones === %
+
+\input{introduccion.tex}
+
+\input{desarrollo.tex}
+
+\input{conclusion.tex}
+
+\end{document}
