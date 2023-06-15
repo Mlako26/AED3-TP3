@@ -1,31 +1,6 @@
-1. Queremos contar la cantidad de pares de nodos que tienen solo un camino entre si y dividirla por la cantidad total de jugadas (n chose 2).
+1. Tenemos un digrafo original y tenemos un camino minimo original entre s y t. Queremos, de entre todas las k aristas bidireccionales nuevas elegir una que minimice el camino minimo entre s y t.
 
-Pseudo:
-
-1. calcular aristas puente
-2. Sacarlas del grafo
-3. Separar nodos segun su componente conexa con dfs
-4. sea x la cantidad de nodos en una componente conexa. Luego, la probabilidad de ganar es la suma de la probabilidad de ganar con cada componente conexa, que es: x/n * (x-1)/(n-1)
-5. La probabilidad de perder es 1 - la probabilidad de ganar.
-
-
-2.
-
-Pseudo:
-
-1. Al momento de haecer la entrada, vamos calculando los grados de salida y entrada de todos los nodos.
-2. Recorremos los grados de entrada de los nodos, y todos los que tengan grado 0 deben de si o si pertenecer a la solucion
-3. Marcamos a los nodos solucion.
-4. Por cada nodo solucion, recorremos con dfs y pintamos los nodos a los que alcanzamos.
-5. De lo que nos queda, damos vueltas aristas y hacemos un dfs. Desde el ultimo nodo encontrado, que pertenecera al ciclo central, realizamos otro dfs y pintamos todas las aristas por las que pasamos. La de menor numero es parte de la solucion
-6. dfs desde esta arista y pintamos todos los dominos que tiramos.
-7. Repetir hasta terminar de tirar todos los dominos.
-
-3.
-
-Pseudo:
-
-1. Armamos un grafo completo con las oficinas, donde cada oficina es su propio vertice y el peso de cada arista es la distancia en cm * el costo de su cable (siempre elegir el mas barato si se puede).
-2. Ordenamos las aristas por peso para Kruskal.
-3. Aplicamos N-W iteraciones de Kruskal.
-4. Sumamos costo de aristas utilizadas por Kruskal (durante el algoritmo) tanto por UTP y fibra optica.
+- Dijkstra desde s. 
+- Dar vuelta aristas Dijkstra desde t.
+- Por cada arista bidireccional Ki v <-> w, hacemos el minimo de el peso del mejor camino minimo hasta ahora, vs ir desde d(s -> v) + ki + d(w -> t) vs d(s -> w) + ki + d(v -> t).
+- Devolvemos el minimo.
