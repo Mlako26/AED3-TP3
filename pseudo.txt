@@ -4,3 +4,8 @@
 - Dar vuelta aristas Dijkstra desde t.
 - Por cada arista bidireccional Ki v <-> w, hacemos el minimo de el peso del mejor camino minimo hasta ahora, vs ir desde d(s -> v) + ki + d(w -> t) vs d(s -> w) + ki + d(v -> t).
 - Devolvemos el minimo.
+
+2. 
+
+- Modelamos los nodos y aristas de la siguiente forma:
+    - Nodos s y t van a ser Kruskal y Prim. Luego, los que prefieren Kurskal 
