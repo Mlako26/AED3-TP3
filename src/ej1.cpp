@@ -3,8 +3,9 @@
 #include <algorithm>
 #include <queue>
 
-
 using namespace std;
+
+int mxn = 1e8;
 
 struct arista {
     int v, p;
@@ -19,7 +20,7 @@ vector<int> dijkstra(vector<vector<arista>>& grafo, int v, int n) {
     priority_queue<arista> heap;
     heap.push({v, 0});
 
-    vector<int> dist(n, INT32_MAX);
+    vector<int> dist(n, mxn);
     vector<bool> esta(n, false);
     dist[v] = 0;
 
@@ -67,17 +68,17 @@ int main() {
         }
 
         vector<int> ds = dijkstra(grafo, s, n); 
-        if(ds[t] == INT32_MAX) {
-            cout << -1 << endl;
-            continue;
-        }
-
         vector<int> dt = dijkstra(grafoT, t, n);
 
         int mn = ds[t];
         for(posible b : posibles) {
             mn = min(mn, ds[b.v] + b.p + dt[b.w]); 
             mn = min(mn, ds[b.w] + b.p + dt[b.v]); 
+        }
+
+        if(mn >= mxn) {
+            cout << -1 << endl;
+            continue;
         }
 
         cout << mn << endl;
