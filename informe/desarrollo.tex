@@ -88,12 +88,12 @@ Cabe aclarar que esta optimización no mejora la complejidad del algoritmo pero,
 Para medir los tiempos de cómputo, por cada $N \in [100, 200,..., 2000]$ generamos 100 tests aleatorios y calculamos el promedio del tiempo de ejecución de estos. Como se puede apreciar en el gráfico, a medida que se aumenta el tamaño del input, el algoritmo crece de la forma mencionada, aunque BucketSort tiene una curva de crecimiento más baja.\footnote{Todos los tests fueron ejecutados desde el mismo ordenador para todos los algoritmos, con un CPU Intel Core i5 6400 (4-core) y 16gb de RAM DDR4 (1066MHz).}
 
 
-\begin{figure}[h]
-    % \ContinuedFloat
-    \centering
-    \includegraphics[width=0.7\textwidth, trim=0 0 0 10]{./grafico.png}
-    \label{grafico}
-\end{figure}
+% \begin{figure}[h]
+%     % \ContinuedFloat
+%     \centering
+%     \includegraphics[width=0.7\textwidth, trim=0 0 0 10]{./grafico.png}
+%     \label{grafico}
+% \end{figure}
 
 \newpage
 \subsection{Implementaciones de Kruskal}
@@ -113,12 +113,12 @@ Por otro lado, podemos comparar tiempos de ejecución con una implementación de
 \vspace{1em}
 Para esta experimentación comparamos los tiempos de ejecución de las tres implementaciones del algoritmo de Kruskal (DSU sin y con optimizaciones, y para grafos densos) con casos de test random generados en Python. Se consideraron la cantidad de oficinas $N \in [100, 200,..., 1000]$, y para cada $N$ diferente se generaron 100 test al azar respetando las restricciones del enunciado original. De este modo, se tomó el promedio de los runtime para cada tamaño de entrada diferente y graficamos las curvas de cada algoritmo en el siguiente cuadro\footnote{Los tests fueron ejecutados desde el mismo ordenador para todos los algoritmos, con un CPU Intel Core i5 6400 (4-core) y 16gb de RAM DDR4 (1066MHz).}:
 
-\begin{figure}[h]
-    %\ContinuedFloat
-    \centering
-    \includegraphics[width=0.7\textwidth, trim=0 0 0 10]{./graficoKlinear.png}
-    \caption{Tiempos de ejecución de las distintas implementaciones de Kruskal con entradas random.} \label{graficoImplementaciones}
-\end{figure}
+% \begin{figure}[h]
+%     %\ContinuedFloat
+%     \centering
+%     \includegraphics[width=0.7\textwidth, trim=0 0 0 10]{./graficoKlinear.png}
+%     \caption{Tiempos de ejecución de las distintas implementaciones de Kruskal con entradas random.} \label{graficoImplementaciones}
+% \end{figure}
 
 \vspace{1em}
 Como se puede apreciar en el gráfico, la implementación optimizada para grafos densos es drásticamente más rápida, en promedio dos veces mejor que las otras dos (esto aumentaría a mayor tamaño de entrada). Ésto verifica lo previamente estimado y muestra que esta versión del algoritmo es la mejor elección de entre las tres para este problema particular. Por otro lado, podemos ver que no hay mucha diferencia en tiempos de ejecución entre ambas implementaciones con DSU. Mientras que claramente la implementación para grafos densos de Kruskal es la más rápida, utilizar un DSU básico u optimizado no hace diferencias notables en tiempos de ejecución. Esto podría deberse a que la complejidad dominante del algoritmo es el ordenamiento, muy superior a la de las operaciones del DSU. Luego, podría ser que a causa de la variación en la velocidad del ordenamiento (en nuestro caso QuickSort) no se pueden apreciar mejoras entre ambas versiones. Creemos que, en teoría, aumentando considerablemente la cantidad de tests cases por cada tamaño de entrada $N$ diferente, eventualmente se reduciría esta variación, permitiendo ver una mejora en tiempos de ejecución del DSU optimizado. 
