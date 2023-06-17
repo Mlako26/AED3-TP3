@@ -6,13 +6,14 @@
 
 using namespace std;
 
-struct arista {int v, p;};
+struct arista {
+    int v, p;
+    bool operator<(const arista &b) const {
+        return p < b.p;
+    }
+};
 
 struct posible {int v, w, p;};
-
-bool comp(const arista& a, const arista& b){
-    return (a.p < b.p);
-}
 
 vector<int> dijkstra(vector<vector<arista>>& grafo, int v, int n) {
     priority_queue<arista> heap;
@@ -20,6 +21,7 @@ vector<int> dijkstra(vector<vector<arista>>& grafo, int v, int n) {
 
     vector<int> dist(n, INT32_MAX);
     vector<bool> esta(n, false);
+    dist[v] = 0;
 
     while(!heap.empty()) {
         arista w = heap.top(); // Get the node with the smallest distance
