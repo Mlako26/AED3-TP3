@@ -7,7 +7,7 @@ Codigo:
 
 Experimentacion:
 
-- [] Copiar plantilla de Python para experimentar
+- [x] Copiar plantilla de Python para experimentar
 - [] Complejidad
 	- [] Generar casos de tests random
 	- [] Generar graficos mostrando complejidad
@@ -30,4 +30,4 @@ Informe:
 
 Miscelaneo:
 
-- [] Agregar los txt de requirements y forma de compilar los algoritmos
+- [x] Agregar los txt de requirements y forma de compilar los algoritmos
