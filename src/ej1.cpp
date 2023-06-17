@@ -19,26 +19,20 @@ struct posible {int v, w, p;};
 vector<int> dijkstra(vector<vector<arista>>& grafo, int v, int n) {
     priority_queue<arista> heap;
     heap.push({v, 0});
-
     vector<int> dist(n, mxn);
     vector<bool> esta(n, false);
     dist[v] = 0;
 
     while(!heap.empty()) {
-        arista w = heap.top(); // Get the node with the smallest distance
-        heap.pop();
-
-        if(esta[w.v]) continue;
-
-        esta[w.v] = true;
-        for(arista k : grafo[w.v]) {
-            if(esta[k.v]) continue;
-            k.p += dist[w.v];
-            if(dist[k.v] > k.p) {
-                heap.push(k);
-                dist[k.v] = k.p;
+        int w = heap.top().v; heap.pop();
+        if(esta[w]) continue;
+        esta[w] = true;
+        for(arista k : grafo[w]) {
+            int p = k.p, u = k.v;
+            if(dist[u] > dist[w] + p) {
+                dist[u] = dist[w] + p;
+                heap.push({u, dist[u]});
             }
-            
         }
     }
 
@@ -69,19 +63,14 @@ int main() {
 
         vector<int> ds = dijkstra(grafo, s, n); 
         vector<int> dt = dijkstra(grafoT, t, n);
-
+        
         int mn = ds[t];
         for(posible b : posibles) {
             mn = min(mn, ds[b.v] + b.p + dt[b.w]); 
             mn = min(mn, ds[b.w] + b.p + dt[b.v]); 
         }
 
-        if(mn >= mxn) {
-            cout << -1 << endl;
-            continue;
-        }
-
-        cout << mn << endl;
+        cout << (mn < mxn ? mn : -1) << endl;
     }
 }
  
