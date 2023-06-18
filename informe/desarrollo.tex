@@ -1,13 +1,18 @@
 \section{Resolución}
 
-Tenemos $W$ módems y queremos que con ellos todas las oficinas dispongan de conexión, minimizando a la vez el costo en cables. Primero, presentaremos una posible solución al problema explicada paso a paso, cuya correctitud será demostrada más adelante. El \textit{problema de los módems} puede ser resuelto con el siguiente algoritmo:
+Tenemos $k$ calles bidireccionales a comparar y buscamos de entre ellas la que minimice el valor del camino más corto entre $s$ y $t$ luego de construirla. Este problema puede ser modelado con un digrafo, donde todo par de puntos está conectado por a lo sumo una arista dirigida. Luego, $s$ y $t$ contarán, o no, con un camino mínimo original el cual buscamos mejorar, o crear, agregando las aristas correspondientes a las calles bidireccionales propuestas. Proponemos entonces el siguiente algoritmo:
 
 \begin{enumerate}
-    \item Armamos un grafo completo donde cada oficina es su propio vertice, y cada una tiene una arista con todas las demás. El peso de cada arista es la distancia en centímetros entre ambas oficinas. 
-    \item Ordenamos las aristas por peso.
-    \item Aplicamos el algoritmo de Kruskal hasta obtener N-W aristas, o mismo, un bosque con W componentes conexas. Luego, en cada una de estas componentes asignamos un módem.
-    \item Por cada arista agregada a la solución, sumamos a la respuesta final su peso multiplicado por el costo del cable (eligiendo UTP como material siempre que sea posible).
-    \item Retornamos la suma de los costos en cables UTP y fibra óptica.
+    \item Armamos un digrafo que modele a la ciudad, donde cada punto es un nodo y cada calle unidireccional es una arista. 
+    \item Utilizamos el algoritmo de Dijkstra para encontrar los caminos minimos desde $s$ hacia todos los nodos.
+    \item Dando vuelta las aristas, utilizamos el algoritmo de Dijkstra para encontrar el camino mínimo de todos los nodos hacia $t$ en el digrafo original.
+    \item Por cada arista bidireccional $k_i$ de largo $l(k_i)$ que une a dos puntos $v$ y $w$, y sea $d(u,p)$ la longitud del camino más corto entre los vértices $u$ y $p$, comparamos el mínimo de entre: 
+    \begin{itemize}
+        \item[--] La longitud del mejor camino hasta ahora entre $s$ y $t$.
+        \item[--] Ir desde $s$ hasta $v$, viajar a $w$ y desde $w$ hasta $t$ con costo $d(s,v) + l(k_i) + d(w,t)$.
+        \item[--] Ir desde $s$ hasta $w$, viajar a $v$ y desde $v$ hasta $t$ con costo $d(s,w) + l(k_i) + d(v,t)$.
+    \end{itemize}
+    \item Devolver la longitud mínima de entre todas las halladas.
 \end{enumerate}
 
 La idea detrás del mismo es agrupar a todas las oficinas en $W$ conjuntos disjuntos, los cuales dispondrán de un módem cada uno. De esta forma, cada oficina tendrá acceso a exáctamente un módem. Puede demostrarse que en una solución minimal, ninguna oficina puede estár conectada a más de uno. Luego, aplicando el algoritmo de Kruskal, se pueden hallar las $W$ componentes conexas tal que minimicen los costos de los cables y así obtener la solución al problema. 

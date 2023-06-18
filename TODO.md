@@ -16,10 +16,10 @@ Experimentacion:
 
 Informe:
 
-- [] Introduccion
-	- [] Explicar el enunciado
+- [x] Introduccion
+	- [x] Explicar el enunciado
 - [] Desarrollo
-	- [] Explicar nuestra solucion
+	- [x] Explicar nuestra solucion
 	- [] Mostrar pseudocódigo de la implementacion
 	- [] Demostrar correctitud del algoritmo
 	- [] Hablar sobre la complejidad y comparar con graficos de Python
