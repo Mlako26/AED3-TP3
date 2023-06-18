@@ -5,41 +5,36 @@
 
 using namespace std;
 
-int mxn = 1e8;
-
-
-
+const int INF = 100000000;
+ 
 struct posible {int v, w, p;};
 
 
-struct arista {
-    int v, p;
-    bool operator<(const arista &b) const {
-        return p < b.p;
-    }
-};
-
-vector<int> dijkstra(vector<vector<arista>>& grafo, int v, int n) {
-    priority_queue<arista> heap;
-    heap.push({v, 0});
-    vector<int> dist(n, mxn);
-    vector<bool> esta(n, false);
-    dist[v] = 0;
-
-    while(!heap.empty()) {
-        int w = heap.top().v; heap.pop();
-        if(esta[w]) continue;
-        esta[w] = true;
-        for(arista k : grafo[w]) {
-            int p = k.p, u = k.v;
-            if(dist[u] > dist[w] + p) {
-                dist[u] = dist[w] + p;
-                heap.push({u, dist[u]});
+vector<int> dijkstra(int s, int n, vector<vector<pair<int, int>>>& grafo) {
+    vector<int> D(n);
+    for(int i = 0; i < n; i++) D[i] = INF;
+    D[s] = 0;
+    priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> q;
+    q.push({0,s});
+ 
+    while(!q.empty()) {
+        pair<int,int> p = q.top();
+        q.pop();
+ 
+        int u = p.second, dist = p.first;
+        if(dist > D[u]) continue;
+ 
+        for(pair<int,int> pr : grafo[u]) {
+            int v = pr.first;
+            int next_dist = dist + pr.second;
+ 
+            if(next_dist < D[v]) {
+                D[v] = next_dist;
+                q.push({next_dist,v});
             }
         }
     }
-
-    return dist;
+    return D;
 }
 
 int main() {
@@ -51,7 +46,7 @@ int main() {
         int n, m, k, s, t; cin >> n >> m >> k >> s >> t;
         --s; --t;
 
-        vector<vector<arista>> grafo(n), grafoT(n);
+        vector<vector<pair<int, int>>> grafo(n), grafoT(n);
         for(int i = 0; i < m; ++i) {
             int v, w, p; cin >> v >> w >> p;
             grafo[v-1].push_back({w-1, p});
@@ -64,8 +59,8 @@ int main() {
             posibles.push_back({v-1, w-1, p});
         }
 
-        vector<int> ds = dijkstra(grafo, s, n); 
-        vector<int> dt = dijkstra(grafoT, t, n);
+        vector<int> ds = dijkstra(s, n, grafo); 
+        vector<int> dt = dijkstra(t, n, grafoT);
         
         int mn = ds[t];
         for(posible b : posibles) {
@@ -73,6 +68,7 @@ int main() {
             mn = min(mn, ds[b.w] + b.p + dt[b.v]); 
         }
 
-        cout << (mn < mxn ? mn : -1) << endl;
+        cout << (mn < INF ? mn : -1) << endl;
     }
 }
+ 
