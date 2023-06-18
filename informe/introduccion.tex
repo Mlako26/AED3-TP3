@@ -1,10 +1,9 @@
 \section{Introducción}
 
-El \textit{problema de los modems} consiste en calcular la mejor forma de brindarles acceso a internet a un conjunto de oficinas. Dadas $N$ oficinas, se tienen $W$ modems para instalar en ellas, con $W < N$. El problema surge de que la cantidad de modems es menor, con lo cual se deben de conectar con cables algunas oficinas entre sí para compartirse conexión. Hay dos tipos de cables: los UTP y los de fibra óptica, con precios por centímetro $U$ y $V$ respectivamente. La diferencia entre estos cables es que los UTP suelen ser más baratos, $U \leq V$, aunque solo se pueden utilizar para conectar dos oficinas que estén a distancia $R$ o menor.
+\textit{Mejorando el tráfico} es un problema en el cual buscamos acortar la distancia entre dos puntos de una ciudad. El mapa de ésta consta de $n$ puntos diferentes unidos de a pares por $m$ calles unidireccionales. Luego, dados dos puntos críticos $s$ y $t$, se propone una lista de $k$ nuevas calles bidireccionales a construir con el propósito de reducir la longitud del camino más corto entre ambos. El objetivo de este problema es encontrar de entre ellas la que minimice la distancia resultante del camino mínimo entre $s$ y $t$.
 
 \vspace{1em}
 
-Entonces, dadas las posiciones de las $N$ oficinas en un eje cartesiano medido en centímetros, la cantidad $W$ de modems, los precios $U$ y $V$ de ambos cables y la distancia $R$, debemos calcular el mínimo costo en cables necesario para conectar a todas las oficinas. Además, se tiene que aclarar cuánto se gasta en cables UTP y de fibra óptica, respectivamente\footnote{Restricciones a los parámetros: \\ \indent \indent $1 \leq W < N \leq 1000 \ \wedge \ 1 \leq U \leq V \leq 10 \ \wedge \ 1 \leq R \leq 10000 \ \wedge \  -10000 \leq x_i, y_i \leq 10000. $}.
+Entonces, dadas las $m$ calles unidireccionales que unen a los diferentes $n$ puntos de la ciudad, los puntos críticos $s$ y $t$, y las $k$ calles bidireccionales propuestas, buscamos encontrar la mejor de ellas y devolver la longitud del camino mínimo resultante entre $s$ y $t$ luego de construirla. En caso de no existir un camino entre ambos puntos críticos, se debe de devolver el valor $-\ 1$ que lo indica\footnote{Restricciones a los parámetros: \\ \indent \indent $n \leq 10000, m \leq 100000, k \leq 300, 1 \leq s, t \leq n, 0 < l_i, q_i \leq 1000$, con $l_i$ y $q_i$ la longitud de las calles de la ciudad \indent \indent y de las calles propuestas respectivamente.}.
 
 \vspace{1em}
-

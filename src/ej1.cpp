@@ -34,7 +34,7 @@ vector<int> dijkstra(vector<vector<arista>>& grafo, int v, int n) {
             int p = k.p, u = k.v;
             if(dist[u] > dist[w] + p) {
                 dist[u] = dist[w] + p;
-                heap.push({u, dist[u]});
+                heap.push({u, -dist[u]});
             }
         }
     }
