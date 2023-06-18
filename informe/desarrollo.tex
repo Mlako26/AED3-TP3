@@ -15,7 +15,7 @@ Tenemos $k$ calles bidireccionales a comparar y buscamos de entre ellas la que m
     \item Devolver la longitud mínima de entre todas las halladas.
 \end{enumerate}
 
-La idea detrás del mismo es agrupar a todas las oficinas en $W$ conjuntos disjuntos, los cuales dispondrán de un módem cada uno. De esta forma, cada oficina tendrá acceso a exáctamente un módem. Puede demostrarse que en una solución minimal, ninguna oficina puede estár conectada a más de uno. Luego, aplicando el algoritmo de Kruskal, se pueden hallar las $W$ componentes conexas tal que minimicen los costos de los cables y así obtener la solución al problema. 
+La idea detrás del algoritmo es considerar todas las calles posibles a construir sin tener que recalcular el nuevo camino mínimo entre $s$ y $t$ con el algoritmo de Dijkstra por cada una. Entonces, luego de obtener los mejores caminos desde $s$ hacia todos los nodos, y desde todos los nodos hacia $t$, podemos rápidamente obtener la longitud del nuevo camino más corto luego de construir la calle $k_i$ con las fórmulas mencionadas en el paso 4. 
 
 \vspace{1em}
 
