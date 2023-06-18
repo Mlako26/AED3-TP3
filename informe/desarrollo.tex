@@ -22,26 +22,45 @@ La idea detrás del algoritmo es considerar todas las calles posibles a construi
 \subsection{Demostración de Correctitud}
 \vspace{1em}
 
-Primero vamos a observar que en una solución minimal no puede haber más de $W$ árboles en el bosque. Esto se debe a que, como tenemos $W$ módems, no tendríamos un módem por árbol, por lo que habría al menos un árbol de oficinas que quedaría sin conexión. 
+Queremos ver que el algoritmo devuelve una solución válida y óptima. Por un lado, buscamos probar que la solución que obtiene es uno de los caminos mínimos entre $s$ y $t$ luego de agregar alguna de las $k$ calles bidireccionales posibles a la ciudad. Por otro lado, queremos ver que no existe un resultado mejor. Es decir, para cualquier otro camino mínimo entre $s$ y $t$ con el agregado de una calle a la ciudad, su longitud sera igual o mayor a la devuelta.
 
 \vspace{1em}
 
-Luego queremos probar que en una solución que minimiza los costos de los cables no puede haber menos de $W$ árboles. Para lograrlo, asumimos que existe una solución mínima tal que se cumple que las oficinas están repartidas en menos de $W$ conjuntos conexos. Podríamos entonces darle un módem a alguna oficina de cada árbol, de esta manera todas las oficinas tendrían conexión. Como tenemos menos de $W$ árboles, nos sobrarían módems, entonces, si elegimos una oficina ``hoja", es decir que tenga una sola arista, y le asignamos uno de los módems que nos sobraron, estaríamos recortando costos ya que podríamos eliminar la conexión que esta oficina tenía previamente. Por lo que llegamos a un absurdo, concluyendo que la asumpción de que teníamos una solución minimal es falsa.
+Demostremos todo esto haciendo inducción sobre el invariante del algoritmo. Observando el mismo, se puede apreciar que luego de $i$ pasos, se habrán considerado las primeras $i$ calles posibles a construir, y se tiene almacenada la longitud del camino más corto entre $s$ y $t$ luego de haber construido una de ellas. Llamemos la variable que guarda este valor $cm$. 
 
 \vspace{1em}
 
-De esta manera probamos que en una solución minimal la cantidad de árboles no es mayor ni menor a $W$, por lo que notamos que debe ser exactamente $W$. 
+\textbf{Caso base:} Cuando $i = 0$, no se consideró todavía ninguna calle bidireccional y $cm$ almacena el mejor camino entre $s$ y $t$ en el digrafo original. Entonces, se cumple triviálmente la hipótesis inductiva.
 
 \vspace{1em}
 
-Encontrar las $W$ componentes conexas tal que minimicen los costos se puede lograr siguiendo el invariante del algoritmo de Kruskal. Esto es porque luego de $i$ pasos de Kruskal, tendremos $N - i$ componentes conexas, tal que no existe otro bosque de $i$ aristas que sume a un costo menor. Entonces, luego de realizar $N - W$ pasos, tendremos $N - (N - W) = W$ conjuntos disjuntos de oficinas, conectadas entre sí minimizando los costos. 
+\textbf{Paso Inductivo:} Supongamos que luego de $i$ pasos del algoritmo se consideraron las primeras $i$ calles bidireccionales y se tiene almacenada la longitud del mejor camino entre ambos puntos críticos habiendo construido una de ellas. Buscamos probar que, luego del paso $i+1$, se consideró la siguiente calle y se actualizó correctamente el valor almacenado.
 
 \vspace{1em}
 
-Queda entonces demostrado que el algoritmo planteado es correcto ya que demostramos que para hallar una solución que minimice los costos es necesario dividir a las oficinas en exactamente $W$ componentes conexas y aprovechamos el algoritmo de Kruskal que nos ofrece una manera de encontrar dicha división.
+En este paso, se considera la calle bidireccional $k_{i+1}$ que tiene longitud $l(k_{i+1})$ y conecta a los puntos $v$ y $w$. Luego, el algoritmo toma la menor de entre las siguientes tres longitudes posibles:
+
+\begin{itemize}
+        \item La ya almacenada en $cm$.
+        \item Ir desde $s$ hasta $v$ con longitud mínima, viajar a $w$, y desde $w$ hasta $t$ con longitud mínima, con costo $d(s,v) + l(k_{i+1}) + d(w,t)$.
+        \item Ir desde $s$ hasta $w$ con longitud mínima, viajar a $v$, y desde $v$ hasta $t$ con longitud mínima, con costo $d(s,w) + l(k_{i+1}) + d(v,t)$.
+\end{itemize}
+
+De ser $cm$ el menor de los tres, por hipótesis inductiva esta es la longitud del mejor camino mínimo entre $s$ y $t$ hasta el momento, con lo cual se cumple que $cm$ sigue siendo el mejor luego de $i+1$ pasos.
 
 \vspace{1em}
 
+Ahora, pensemos que pasa cuando el mínimo es uno de los dos nuevos caminos que pasan por la calle bidireccional $k_{i+1}$. Supongamos que la longitud del camino que pasa por $k_{i+1}$ desde $v$ hacia $w$ es la mínima de las tres opciones (la demostración es idéntica en el caso en que pase por $k_{i+1}$ desde $w$ hacia $v$). 
+
+\vspace{1em}
+
+Por hipótesis inductiva, como $cm$ es la longitud del mejor camino mínimo hasta ahora, este nuevo camino es mejor que todos los anteriores. Luego, solo queda ver que en el digrafo donde se agregaron las aristas $v \rightarrow w$ y $w \rightarrow v$, este nuevo camino es efectivamente uno mínimo entre $s$ y $t$. Para ello, debemos demostrar que no existe otro camino entre ambos puntos críticos que tenga menor longitud que $d(s,v) + l(k_{i+1}) + d(w,t)$. Como este camino es mejor que todos los anteriores hasta este momento, en particular es mejor que el camino mínimo entre $s$ y $t$ del digrafo original. Entonces, como se agregaron solo las dos aristas nuevas $v \rightarrow w$ y $w \rightarrow v$, todo nuevo camino mínimo entre $s$ y $t$ mejor que el original deberá necesariamente pasar por alguna de ellas. Pero de existir uno mejor que los mencionados, significa que iría desde $s$ o $t$ hasta $v$ o $w$ con menor longitud que la mínima posible, lo cual es absurdo porque estas distancias fueron calculadas con el algoritmo de Dijkstra, y por ende son mínimas. Luego, el camino $s \rightarrow v \rightarrow w \rightarrow t$ es mejor que todos los anteriores y es el mínimo en el digrafo del paso actual, con lo cual se cumple que es el mejor luego de $i+1$ pasos.
+
+\vspace{1em}
+
+Queda entonces demostrado que en el paso $k_{i+1}$ se consideran las primeras $i+1$ calles bidireccionales y se almancena en $cm$ la longitud del mejor camino mínimo entre $s$ y $t$ habiendo construido una de ellas. Al finalizar el algoritmo se habrán considerado todas las calles propuestas, y se devolverá efectivamente la longitud del camino mínimo mas corto posible.
+
+\vspace{1em}
 \subsection{Implementación}
 \vspace{1em}
 
