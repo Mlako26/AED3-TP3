@@ -9,3 +9,28 @@
 
 - Modelamos los nodos y aristas de la siguiente forma:
     - Nodos s y t van a ser Kruskal y Prim. Luego, los que prefieren Kurskal 
+
+DEMO del 1:
+
+Queremos ver que el algoritmo devuelve una solucion valida y optima. Es decir, por un lado queremos ver que la solucion que devuelve es uno de los caminos minimos entre s y t luego de agregar alguna de las k calles bidireccionales posibles a la ciudad. Por otro lado, queremos ver que el devuelto es el mejor de ellos. Es decir, para cualquier otro camino minimo entre s y t con el agregado de una calle a la ciudad, su longitud sera igual o mayor al devuelto.
+
+Demostremos todo esto haciendo induccion sobre el invariante del algoritmo. Este dice que luego de $i$ pasos, se habran considerado las primeras $i$ calles posibles a construir, y se tiene almacenada la longitud del camino mas corto entre $s$ y $t$ luego de haber construido una de ellas. LLamemos la variable que guarda este valor $cm$. 
+
+Caso base: Cuando $i = 0$, no se considero todavia ninguna calle bidireccional y $cm$ almacena el mejor camino entre $s$ y $t$ en el digrafo original. Entoneces, se cumple trivialmente la hipotesis inductiva.
+
+Paso Inductivo: Supongamos que, luego de $i$ pasos del algoritmo, se consideraron las primeras $i$ calles bidireccionales y se tiene almacenada la longitud del mejor camino entre los puntos criticos habiendo construido una de ellas. Queremos probar que, luego del paso $i+1$, se considero la siguiente calle y se actualizo correctamente el valor almacenado.
+
+En este paso, se considera la calle bidireccional $k_i+1$ que tiene longitud $l(k_i+1)$ y conecta a los puntos $v$ y $w$. Luego, el algoritmo toma la menor de entre tres longitudes posibles:
+\begin{itemize}
+        \item[--] La ya almacenada en $cm$.
+        \item[--] Ir desde $s$ hasta $v$ con longitud minima, viajar a $w$ y desde $w$ hasta $t$ con longitud minima, con costo $d(s,v) + l(k_i+1) + d(w,t)$.
+        \item[--] Ir desde $s$ hasta $w$ con longitud minima, viajar a $v$ y desde $v$ hasta $t$ con longitud minima, con costo $d(s,w) + l(k_i+1) + d(v,t)$.
+\end{itemize}
+
+De ser $cm$ el mejor valor, por hipotesis inductiva este es la longitud del mejor camino minimo entre $s$ y $t$ hasta el momento, con lo cual se cumple que $cm$ sigue siendo el mejor luego de $i+1$ pasos.
+
+Por otro lado, pensemos que pasa cuando el minimo es uno de los dos nuevos caminos que pasan por la calle bidireccional $k_i+1$. Supongamos que la longitud del camino que pasa por $k_i+1$ desde $v$ hacia $w$ es la minima. En el digrafo donde se agregaron las aristas $v$->$w$ y $w$->$v$, queremos probar que este nuevo camino es efectivamente un camino minimo entre $s$ y $t$. Para ello, no debe de existir otro camino entre ambos puntos con menor longitud. Pero por hipotesis inductiva, $cm$ almacenaba la longitud del mejor camino minimo entre $s$ y $t$ habiendo considerando las primeras $k$ calles bidireccionales. Es decir, no existia camino con longitud menor a $cm$ hasta este paso. Luego, como la longitud de este nuevo camino $s$ -> $v$ -> $w$ -> $t$ es menor a $cm$, y efectivamente es un camino entre $s$ y $t$, es un camino minimo entre ambos puntos criticos y el mejor hasta el momento. La demostracion es identica en el caso en que el minimo era el camino que pasaba por $k_i+1$ desde $w$ hacia $v$.
+
+Entonces, queda demostrado que en el paso $k_i+1$ se consideran las primeras $i+1$ calles bidireccionales y se almancena en $cm$ la longitud del mejor camino minimo entre $s$ y $t$ habiendo construido una de ellas.
+
+Luego, al finalizar el algoritmo se habran considerado todas las calles propuestas, y se devolvera efectivamente la longitud del camino minimo mas corto posible.
