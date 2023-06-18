@@ -7,10 +7,7 @@ using namespace std;
 
 int mxn = 1e8;
 
-
-
 struct posible {int v, w, p;};
-
 
 struct arista {
     int v, p;
