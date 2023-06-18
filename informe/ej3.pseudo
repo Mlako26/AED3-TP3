@@ -1,16 +1,16 @@
 struct arista {int u, v, d}
 proc trafico(in s, t: int, in vector<vector<arista>> D, 
              in vector<aristas> posibles) {
-    // Calculamos caminos m\'inimos desde s y hacia t
-    // dijkstraT interpreta aristas al rev\'es
-    distS := dijkstra(G,s)
-    distT := dijkstraT(G,s) 
-    
-    mn := distS[t]
-    for (arista k: posibles) :
-        mn := min(mn, distS[k.u] + k.d + distT[k.v])
-        mn := min(mn, distS[k.v] + k.d + distT[k.u])
 
-    res := mn
-    if (res := INF) res := -1 
+    // dijkstraT interpreta aristas al reves
+    distS := dijkstra(D,s)
+    distT := dijkstraT(D,t) 
+    
+    cm := distS[t]
+    for (arista k: posibles) :
+        cm := min(cm, distS[k.u] + k.d + distT[k.v])
+        cm := min(cm, distS[k.v] + k.d + distT[k.u])
+
+    res := cm
+    if (res = INF) res := -1 
 }
