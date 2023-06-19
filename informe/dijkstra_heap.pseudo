@@ -1,0 +1,21 @@
+struct arista {int nodo, peso}
+proc dijkstra_heap(int v, vector<vector<arista>> grafo) : vector<int> {
+
+    min_heap<arista> h
+    h.push({v, 0})
+    vector<bool> esta?(n, false)
+    vector<int> dist(n, inf)
+    dist[v] := 0
+
+    while(not h.vacio?()):
+        int w := h.minimo().nodo
+        h.elimino_minimo()
+        if(esta?[w]) continuo
+        esta[w] = true
+        for(arista u : grafo[w]) :
+            if(dist[u.nodo] > dist[w] + u.peso) :
+                dist[u.nodo] := dist[w] + u.peso
+                h.push({u, dist[u]})
+            
+    return dist
+}

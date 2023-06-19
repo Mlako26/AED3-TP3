@@ -286,6 +286,9 @@ vector<int> dijkstra(vector<vector<arista>>& grafo, int v, int n) {
     FibonacciHeap<arista> heap;
     heap.insert({v, 0});
     vector<int> dist(n, INF);
+    vector<node<arista>*> nodos(n);
+
+    for(int i = 0; i < n; ++i) heap.insert({u, dist[u]});
     vector<bool> esta(n, false);
     dist[v] = 0;
 

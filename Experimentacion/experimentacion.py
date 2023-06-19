@@ -13,11 +13,16 @@ os.chdir(parent_dir)
 
 
 # Variables
-MIN_N = 1000
-MAX_N = int(2e4) + MIN_N
+REPS = 10
 
-REPS = 30
-STEP = MIN_N
+MAX_N = int(5e3) + 1
+n_list = []
+step = 10
+nnn = 10
+while(nnn < MAX_N) : 
+    n_list.append(nnn)
+    if(nnn == 10 * step): step *= 10
+    nnn += step
 
 
 class Implementacion:
@@ -31,8 +36,8 @@ class Implementacion:
 
 implementaciones = []
 implementaciones.append(Implementacion("Heap", "red", "ej1", "../src/ej1.cpp"))
-implementaciones.append(Implementacion("FibonacciHeap", "blue", "ej1_fibonacci", "../src/ej1_fibonacci.cpp"))
-# implementaciones.append(Implementacion("Dense", "green", "ej1_dense", "../src/ej1_dense.cpp"))
+# implementaciones.append(Implementacion("FibonacciHeap", "blue", "ej1_fibonacci", "../src/ej1_fibonacci.cpp"))
+implementaciones.append(Implementacion("Dense", "green", "ej1_dense", "../src/ej1_dense.cpp"))
 
 for imp in implementaciones:
     subprocess.run(["g++", "-o", imp.exe, imp.path])
@@ -46,43 +51,21 @@ if not os.path.exists(os.path.join(parent_dir, "in")) :
 # crear archivo donde meter los tiempos
 open(FILE_NAME, "w").close()
 
-# # generar test aleatorio para un n especifico
-# def random_test(n):
-#     test = ""
-#     M = random.randint(0, min(int(1e5), ((n-1) * n)))
-#     K = random.randint(0, 299)
-#     ST = random.sample(range(1, n+1), 2)
-#     test += str(n) + " " + str(M) + " " + str(K) + " " + str(ST[0]) + " " + str(ST[1]) + "\n"
-
-#     grafo = random.sample([(i, j) for i in range(1, n + 1) for j in range(1, n + 1) if i != j], M)
-    
-#     for (i, j) in grafo:
-#         l = random.randint(1, 1000)
-#         test += str(i) + " " + str(j) + " " + str(l) + "\n"
-
-#     for i in range(0, K):
-#         vw = random.sample(range(1, n+1), 2)
-#         l = random.randint(1, 1000)
-#         test += str(vw[0]) + " " + str(vw[1]) + " " + str(l) + "\n"
-
-#     return test
-
 def random_test(n):
     test = ""
-    M = n // 2
+    M = (n * (n-1)) // 2
     K = random.randint(0, 299)
     ST = random.sample(range(1, n+1), 2)
     test += str(n) + " " + str(M) + " " + str(K) + " " + str(ST[0]) + " " + str(ST[1]) + "\n"
 
-    for _ in range(M + K):
-        vw = random.sample(range(1, n+1), 2)
-        l = random.randint(1, 1000)
-        test += str(vw[0]) + " " + str(vw[1]) + " " + str(l) + "\n"
+    # no toques esto que corre a las chapas
+    test_cases = [f"{v} {w} {l}" for v, w, l in zip(random.choices(range(1, n+1), k=M+K), random.choices(range(1, n+1), k=M+K), random.choices(range(1, 1001), k=M+K))]
+    test += "\n".join(test_cases) + '\n'
 
     return test
 
 def create_tests_linear():
-    for n in range(MIN_N, MAX_N, STEP):
+    for n in n_list:
         with open(f"in/test_{n}", 'w') as f:
             f.write(f"{REPS}\n") # Hace 100 test cases por n diferente
             for _ in range(REPS):
@@ -91,7 +74,7 @@ def create_tests_linear():
 
 # compilar el codigo y correr los tests aleatorios
 def run_linear():
-    for n in range(MIN_N, MAX_N, STEP):
+    for n in n_list:
         with open(f"in/test_{n}", 'r') as f:
             input_data = f.read()
 
@@ -130,7 +113,7 @@ def graph_linear():
     # Crear el gráfico
     for imp in implementaciones: 
         plt.plot(n, imp.t, label=imp.nombre, color=imp.color)
-        plt.scatter(n, imp.t, color=imp.color)
+        # plt.scatter(n, imp.t, color=imp.color)
 
 
     plt.title('Tiempo de Ejecución en Función de la Cantidad de Puntos')
