@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1687132544 "c:/Users/mlako/Desktop/Trabajos/Facu/AED3-TP3/informe/main.tex" "main.pdf" "main" 1687132546 0
+["pdflatex"] 1687133155 "c:/Users/mlako/Desktop/Trabajos/Facu/AED3-TP3/informe/main.tex" "main.pdf" "main" 1687133156 0
   "C:/Users/mlako/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1687035041 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/mlako/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1000.pk" 1687035045 11548 815e4ecce408f96f74ac7695706cde4e ""
   "C:/Users/mlako/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1686500684 10788010 0b879c49c6c137c3fe5a0c139a4a3554 ""
@@ -100,12 +100,12 @@
   "c:/Users/mlako/Desktop/Trabajos/Facu/AED3-TP3/informe/main.tex" 1687130358 1940 0dcc03a81f86691abfa4614355fe53f8 ""
   "caratula.sty" 1684364536 11937 e7dcb01153208d6325921b2a0ccbb273 ""
   "conclusion.tex" 1685318655 599 248a4775f9dbdc08c04a56f177b82dae ""
-  "desarrollo.tex" 1687132544 14579 6938c1f53d5e9ec98d1f37154bf8196d ""
+  "desarrollo.tex" 1687133154 14844 9f83eee796e2d7f02702fa67c32dd7f3 ""
   "ej3.pseudo" 1687132372 453 fc3b29bf629c06c4e695004e8c1161d4 ""
   "introduccion.tex" 1687046884 1287 c03ea6d8d9c3850f3f3cd88d7c088b25 ""
   "logo_dc.jpg" 1684364536 128041 860ed529f2e122b3922f6ce21e3273f1 ""
   "logo_uba.jpg" 1684364536 229119 10f3a63be47e1e95e44f30008ec3af50 ""
-  "main.aux" 1687132545 1104 542a6bade9c35b90d13dd9e1600a9f90 "pdflatex"
+  "main.aux" 1687133156 1104 542a6bade9c35b90d13dd9e1600a9f90 "pdflatex"
   "main.tex" 1687130358 1940 0dcc03a81f86691abfa4614355fe53f8 ""
   (generated)
   "main.aux"

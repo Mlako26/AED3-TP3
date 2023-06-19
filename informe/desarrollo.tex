@@ -39,7 +39,7 @@ Demostremos todo esto haciendo inducción sobre el invariante del algoritmo. Obs
 
 \vspace{1em}
 
-\textbf{Paso Inductivo:} Supongamos que luego de $i$ pasos del algoritmo se consideraron las primeras $i$ calles bidireccionales y se tiene almacenada la longitud del mejor camino entre ambos puntos críticos habiendo construido una de ellas. Buscamos probar que, luego del paso $i+1$, se consideró la siguiente calle y se actualizó correctamente el valor almacenado.
+\textbf{Paso Inductivo:} Supongamos que luego de $i$ pasos del algoritmo se consideraron las primeras $i$ calles bidireccionales, y se tiene almacenada la longitud del mejor camino entre $s$ y $t$ habiendo construido una de ellas. Buscamos probar que, luego del paso $i+1$, se consideró la siguiente calle y se actualizó correctamente el valor almacenado.
 
 \vspace{1em}
 
@@ -59,11 +59,15 @@ Ahora, pensemos que pasa cuando el mínimo es uno de los dos nuevos caminos que 
 
 \vspace{1em}
 
-Por hipótesis inductiva, como $cm$ es la longitud del mejor camino mínimo hasta ahora, este nuevo camino es mejor que todos los anteriores. Luego, solo queda ver que en el digrafo donde se agregaron las aristas $v \rightarrow w$ y $w \rightarrow v$, este nuevo camino es efectivamente uno mínimo entre $s$ y $t$. Para ello, debemos demostrar que no existe otro camino entre ambos puntos críticos que tenga menor longitud que $d(s,v) + l(k_{i+1}) + d(w,t)$. Como este camino es mejor que todos los anteriores hasta este momento, en particular es mejor que el camino mínimo entre $s$ y $t$ del digrafo original. Entonces, como se agregaron solo las dos aristas nuevas $v \rightarrow w$ y $w \rightarrow v$, todo nuevo camino mínimo entre $s$ y $t$ mejor que el original deberá necesariamente pasar por alguna de ellas. Pero de existir uno mejor que los mencionados, significa que iría desde $s$ o $t$ hasta $v$ o $w$ con menor longitud que la mínima posible, lo cual es absurdo porque estas distancias fueron calculadas con el algoritmo de Dijkstra, y por ende son mínimas. Luego, el camino $s \rightarrow v \rightarrow w \rightarrow t$ es mejor que todos los anteriores y es el mínimo en el digrafo del paso actual, con lo cual se cumple que es el mejor luego de $i+1$ pasos.
+Por hipótesis inductiva, como $cm$ es la longitud del mejor camino mínimo hasta ahora, este nuevo camino es mejor que todos los anteriores. Luego, solo queda ver que en el digrafo donde se agregaron las aristas $v \rightarrow w$ y $w \rightarrow v$, este nuevo camino es efectivamente uno mínimo entre $s$ y $t$. Para ello, debemos demostrar que no existe otro camino entre ambos puntos críticos que tenga menor longitud que $d(s,v) + l(k_{i+1}) + d(w,t)$. 
 
 \vspace{1em}
 
-Queda entonces demostrado que en el paso $k_{i+1}$ se consideran las primeras $i+1$ calles bidireccionales y se almancena en $cm$ la longitud del mejor camino mínimo entre $s$ y $t$ habiendo construido una de ellas. Al finalizar el algoritmo se habrán considerado todas las calles propuestas, y se devolverá efectivamente la longitud del camino mínimo mas corto posible.
+Como este camino es mejor que todos los anteriores hasta este momento, en particular es mejor que el camino mínimo entre $s$ y $t$ del digrafo original. Entonces, como se agregaron solo las dos aristas nuevas $v \rightarrow w$ y $w \rightarrow v$, todo nuevo camino mínimo entre $s$ y $t$ mejor que el original deberá necesariamente pasar por alguna de ellas. Pero de existir uno mejor que los mencionados, significa que iría desde $s$ o $t$ hasta $v$ o $w$ con menor longitud que la mínima posible, lo cual es absurdo porque estas distancias fueron calculadas con el algoritmo de Dijkstra, y por ende no existen caminos más cortos. Luego, el camino $s \rightarrow v \rightarrow w \rightarrow t$ es mejor que todos los anteriores y es el mínimo en el digrafo del paso actual, con lo cual se cumple que es el mejor luego de $i+1$ pasos.
+
+\vspace{1em}
+
+Queda entonces demostrado que en el paso $k_{i+1}$ se consideran las primeras $i+1$ calles bidireccionales y se almancena en $cm$ la longitud del mejor camino mínimo entre $s$ y $t$ habiendo construido una de ellas. Al finalizar el algoritmo, se habrán considerado todas las calles propuestas y se devolverá efectivamente la longitud del camino mínimo mas corto posible. También observar que, de no existir camino entre $s$ y $t$ incluso agregando algunas de las $k$ aristas, el mínimo calculado en cada paso será siempre infinito, y por ende el algoritmo reconocerá correctamente que debe de devolver -1.
 
 \subsection{Análisis de la Complejidad}
 \vspace{1em}
