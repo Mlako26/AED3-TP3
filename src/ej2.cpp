@@ -9,6 +9,9 @@ int INF = 1e8;
 vector<vector<int>> capacity;
 vector<vector<int>> adj;
 
+
+// Las siguientes funciones "bfs" y "maxflow" son implementaciones del algoritmo e&k enviadas por los docentes
+// https://cp-algorithms.com/graph/edmonds_karp.html#implementation. 
 int bfs(int s, int t, vector<int>& parent) {
     fill(parent.begin(), parent.end(), -1);
     parent[s] = -2;
@@ -65,6 +68,7 @@ int main() {
         vector<vector<int>> grafo(n+2);
         vector<vector<int>> capacidades(n+2, vector<int>(n+2, 0));
 
+        // Generamos el grafo agregando 2 nodos imaginarios, uno que representa a Kruskal y uno que representa a Prim
         for(int i = 1; i <= n; ++i) {
             int k; scanf("%d", &k); k *= n + 1;
             grafo[k].push_back(i);
@@ -73,7 +77,7 @@ int main() {
             capacidades[k][i] = 1;
         }
 
-
+        // agregamos las relaciones de amistad bidireccionales al grafo
         for(int i = 0; i < m; ++i) {
             int v, w; scanf("%d %d", &v, &w);
             grafo[v].push_back(w);
@@ -84,11 +88,9 @@ int main() {
         adj = grafo;
         capacity = capacidades;
 
-
+         // calculamoms el corte mínimo y printeamos la solución.
         printf("%d\n", maxflow(0, n+1, n+2));
 
     }
 
 }
-
- 

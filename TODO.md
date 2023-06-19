@@ -3,15 +3,15 @@
 Codigo:
 
 - [] Ultima revisada al 1 y agregar comentarios
-- [] Ultima revisada al 2 y agregar comentarios
+- [x] Ultima revisada al 2 y agregar comentarios
 
 Experimentacion:
 
 - [x] Copiar plantilla de Python para experimentar
 - [] Complejidad
-	- [] Generar casos de tests random
+	- [x] Generar casos de tests random
 	- [] Generar graficos mostrando complejidad
-- [] Comparar con implementacion de Dijkstra con Fibonacci Heaps
+- [x] Comparar con implementacion de Dijkstra con Fibonacci Heaps + Dense Dijkstra
 - [] Comparar quizas con floyd-warshall de internet (OPCIONAL).
 
 Informe:
