@@ -32,11 +32,11 @@ Queremos ver que el algoritmo devuelve una solución válida y óptima. Por un l
 
 \vspace{1em}
 
-Demostremos todo esto haciendo inducción sobre el invariante del algoritmo. Observando el mismo, se puede apreciar que luego de $i$ pasos, se habrán considerado las primeras $i$ calles posibles a construir, y se tiene almacenada la longitud del camino más corto entre $s$ y $t$ luego de haber construido una de ellas. Llamemos la variable que guarda este valor $cm$. 
+Demostremos todo esto haciendo inducción sobre el invariante del algoritmo. Observando el mismo, se puede apreciar que luego de $i$ pasos, se habrán considerado las primeras $i$ calles posibles a construir, y se tiene almacenada la longitud del camino más corto entre $s$ y $t$ luego de haber construido una de ellas. Llamemos la variable que guarda este valor $mn$. 
 
 \vspace{1em}
 
-\textbf{Caso base:} Cuando $i = 0$, no se consideró todavía ninguna calle bidireccional y $cm$ almacena el mejor camino entre $s$ y $t$ en el digrafo original. Entonces, se cumple triviálmente la hipótesis inductiva.
+\textbf{Caso base:} Cuando $i = 0$, no se consideró todavía ninguna calle bidireccional y $mn$ almacena el mejor camino entre $s$ y $t$ en el digrafo original. Entonces, se cumple triviálmente la hipótesis inductiva.
 
 \vspace{1em}
 
@@ -47,12 +47,12 @@ Demostremos todo esto haciendo inducción sobre el invariante del algoritmo. Obs
 En este paso, se considera la calle bidireccional $k_{i+1}$ que tiene longitud $l(k_{i+1})$ y conecta a los puntos $v$ y $w$. Luego, el algoritmo toma la menor de entre las siguientes tres longitudes posibles:
 
 \begin{itemize}
-        \item La ya almacenada en $cm$.
+        \item La ya almacenada en $mn$.
         \item Ir desde $s$ hasta $v$ con longitud mínima, viajar a $w$, y desde $w$ hasta $t$ con longitud mínima, con costo $d(s,v) + l(k_{i+1}) + d(w,t)$.
         \item Ir desde $s$ hasta $w$ con longitud mínima, viajar a $v$, y desde $v$ hasta $t$ con longitud mínima, con costo $d(s,w) + l(k_{i+1}) + d(v,t)$.
 \end{itemize}
 
-De ser $cm$ el menor de los tres, por hipótesis inductiva esta es la longitud del mejor camino mínimo entre $s$ y $t$ hasta el momento, con lo cual se cumple que $cm$ sigue siendo el mejor luego de $i+1$ pasos.
+De ser $mn$ el menor de los tres, por hipótesis inductiva esta es la longitud del mejor camino mínimo entre $s$ y $t$ hasta el momento, con lo cual se cumple que $mn$ sigue siendo el mejor luego de $i+1$ pasos.
 
 \vspace{1em}
 
@@ -60,7 +60,7 @@ Ahora, pensemos que pasa cuando el mínimo es uno de los dos nuevos caminos que 
 
 \vspace{1em}
 
-Por hipótesis inductiva, como $cm$ es la longitud del mejor camino mínimo hasta ahora, este nuevo camino es mejor que todos los anteriores. Luego, solo queda ver que en el digrafo donde se agregaron las aristas $v \rightarrow w$ y $w \rightarrow v$, este nuevo camino es efectivamente uno mínimo entre $s$ y $t$. Para ello, debemos demostrar que no existe otro camino entre ambos puntos críticos que tenga menor longitud que $d(s,v) + l(k_{i+1}) + d(w,t)$. 
+Por hipótesis inductiva, como $mn$ es la longitud del mejor camino mínimo hasta ahora, este nuevo camino es mejor que todos los anteriores. Luego, solo queda ver que en el digrafo donde se agregaron las aristas $v \rightarrow w$ y $w \rightarrow v$, este nuevo camino es efectivamente uno mínimo entre $s$ y $t$. Para ello, debemos demostrar que no existe otro camino entre ambos puntos críticos que tenga menor longitud que $d(s,v) + l(k_{i+1}) + d(w,t)$. 
 
 \vspace{1em}
 
@@ -68,7 +68,7 @@ Como este camino es mejor que todos los anteriores hasta este momento, en partic
 
 \vspace{1em}
 
-Queda entonces demostrado que en el paso $k_{i+1}$ se consideran las primeras $i+1$ calles bidireccionales y se almancena en $cm$ la longitud del mejor camino mínimo entre $s$ y $t$ habiendo construido una de ellas. Al finalizar el algoritmo, se habrán considerado todas las calles propuestas y se devolverá efectivamente la longitud del camino mínimo mas corto posible. También observar que, de no existir camino entre $s$ y $t$ incluso agregando algunas de las $k$ aristas, el mínimo calculado en cada paso será siempre infinito, y por ende el algoritmo reconocerá correctamente que debe de devolver -1.
+Queda entonces demostrado que en el paso $k_{i+1}$ se consideran las primeras $i+1$ calles bidireccionales y se almancena en $mn$ la longitud del mejor camino mínimo entre $s$ y $t$ habiendo construido una de ellas. Al finalizar el algoritmo, se habrán considerado todas las calles propuestas y se devolverá efectivamente la longitud del camino mínimo mas corto posible. También observar que, de no existir camino entre $s$ y $t$ incluso agregando algunas de las $k$ aristas, el mínimo calculado en cada paso será siempre infinito, y por ende el algoritmo reconocerá correctamente que debe de devolver -1.
 
 \subsection{Análisis de la Complejidad}
 \vspace{1em}
