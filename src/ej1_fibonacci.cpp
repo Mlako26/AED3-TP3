@@ -4,7 +4,6 @@
 #include <queue>
 #include <set>
 #include <iostream>
-#include <unordered_map>
 #include <cmath>
 
 using namespace std;
@@ -286,21 +285,26 @@ vector<int> dijkstra(vector<vector<arista>>& grafo, int v, int n) {
     FibonacciHeap<arista> heap;
     heap.insert({v, 0});
     vector<int> dist(n, INF);
-    vector<node<arista>*> nodos(n);
 
-    for(int i = 0; i < n; ++i) heap.insert({u, dist[u]});
+    vector<node<arista>*> nodos(n);
     vector<bool> esta(n, false);
+    vector<bool> entro(n, false);
     dist[v] = 0;
 
     while(!heap.isEmpty()) {
-        int w = heap.getMinimum().v; heap.removeMinimum();
+        int w = heap.removeMinimum().v;
         if(esta[w]) continue;
         esta[w] = true;
         for(arista k : grafo[w]) {
             int p = k.p, u = k.v;
             if(dist[u] > dist[w] + p) {
                 dist[u] = dist[w] + p;
-                heap.insert({u, dist[u]});
+                if(entro[u]) {
+                    heap.decreaseKey(nodos[u], {u, dist[u]});
+                } else {
+                    nodos[u] = heap.insert({u, dist[u]});
+                    entro[u] = true;
+                }
             }
         }
     }
