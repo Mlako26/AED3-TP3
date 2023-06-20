@@ -13,12 +13,12 @@ os.chdir(parent_dir)
 
 
 # Variables
-REPS = 50
+REPS = 10
 
-MAX_N = int(44e3)
+MAX_N = int(2e3)
 n_list = []
-step = 1000
-nnn = 5000
+step = 200
+nnn = 200
 while(nnn <= MAX_N) : 
     n_list.append(nnn)
     # if(nnn == 10 * step): step *= 10
@@ -35,15 +35,15 @@ class Implementacion:
 
 implementaciones = []
 implementaciones.append(Implementacion("Heap", "red", "ej1", "../src/ej1.cpp"))
-implementaciones.append(Implementacion("FibonacciHeap", "blue", "ej1_fibonacci", "../src/ej1_fibonacci.cpp"))
-# implementaciones.append(Implementacion("Dense", "green", "ej1_dense", "../src/ej1_dense.cpp"))
+# implementaciones.append(Implementacion("FibonacciHeap", "blue", "ej1_fibonacci", "../src/ej1_fibonacci.cpp"))
+implementaciones.append(Implementacion("Dense", "green", "ej1_dense", "../src/ej1_dense.cpp"))
 
 
 FILE_NAME = "tiempos.txt"
 
 def random_test(n):
     test = ""
-    M = (n * (n-1)) // 1000
+    M = (n * (n-1)) // 10
     K = random.randint(0, 299)
     ST = random.sample(range(1, n+1), 2)
     test += str(n) + " " + str(M) + " " + str(K) + " " + str(ST[0]) + " " + str(ST[1]) + "\n"
@@ -118,7 +118,7 @@ def graph_linear(b):
 
     for imp in implementaciones: 
         plt.plot(n_list, imp.t, label=imp.nombre, color=imp.color)
-        # plt.scatter(n_list, imp.t, color=imp.color)
+        plt.scatter(n_list, imp.t, color=imp.color)
 
 
     plt.title('Tiempo de Ejecución en Función de la Cantidad de Puntos')
@@ -131,15 +131,15 @@ def graph_linear(b):
     plt.savefig('grafico.png')
 
 print("Creando tests:...")
-# create_tests_linear()
+create_tests_linear()
 print("Listo!\n")
 
 print("Ejecutando algoritmos:...")
-# run_linear()
+run_linear()
 print("Listo!\n")
 
 n_list = [(kkk * (kkk-1)) // 1000 for kkk in n_list]
 
 print("Creando grafico:...")
-graph_linear(True)
+graph_linear(False)
 print("Listo!\n")
