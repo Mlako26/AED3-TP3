@@ -121,8 +121,8 @@ def graph_linear(b):
         plt.scatter(n_list, imp.t, color=imp.color)
 
 
-    plt.title('Tiempo de Ejecución en Función de la Cantidad de Puntos')
-    plt.xlabel('Cantidad de Puntos')
+    plt.title('Tiempo de Ejecución en Función de la Cantidad de Aristas')
+    plt.xlabel('Cantidad de Aristas')
     plt.ylabel('Tiempo de Ejecución Promedio (s)')
     plt.legend()
     plt.grid(True)
@@ -131,15 +131,15 @@ def graph_linear(b):
     plt.savefig('grafico.png')
 
 print("Creando tests:...")
-create_tests_linear()
+# create_tests_linear()
 print("Listo!\n")
 
 print("Ejecutando algoritmos:...")
-run_linear()
+# run_linear()
 print("Listo!\n")
 
-n_list = [(kkk * (kkk-1)) // 1000 for kkk in n_list]
+n_list = [(kkk * (kkk-1)) // 10 for kkk in n_list]
 
 print("Creando grafico:...")
-graph_linear(False)
+graph_linear(True)
 print("Listo!\n")
